@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd ">
+
+	<!-- For Spring Configuration Example -->
+	<!-- <bean class="com.esb.cbp.conf.WebSwaggerConfiguration" /> -->
+	<!-- For Spring Configuration Example -->
+	
+	<!-- For jdbcTemplate Bean -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@e62m1dbu-scan.testesunbank.com.tw:1191/edlsd"></property>
+        <property name="username" value="EDLS"></property>
+        <property name="password" value="EDLS0304"></property>
+    </bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+         <property name="dataSource" ref="dataSource"></property>
+     </bean>
+	<!-- For jdbcTemplate Bean -->
+
+	
+	<!-- For Dao Bean -->
+	<bean name="foodDao" class="com.education.edu.dao.impl.FoodDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<!-- For Dao Bean -->
+	
+	<!-- For Service Bean -->
+	<bean name="foodService" class="com.education.edu.service.impl.FoodServiceImpl">
+		<property name="foodDao" ref="foodDao"/>
+	</bean>
+	<!-- For Service Bean -->
+
+</beans>
